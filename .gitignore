@@ -20,3 +20,4 @@ example_rails_app/spec/spec.opts
 example_rails_app/spec/spec_helper.rb
 example_rails_app/vendor
 .DS_Store
+.emacs-project
