@@ -30,7 +30,7 @@ module RSpec
         end
         puts "Successfully pushed changes to github"
       else
-        puts "Unable to push.  Run git:status to view any uncommitted changes"
+        puts "Unable to push.  Run 'rake git:status' to view any uncommitted changes"
       end
     end
 
