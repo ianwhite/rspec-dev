@@ -72,6 +72,11 @@ namespace :git do
   task :status do
     git.status
   end
+
+  desc "Push repo and submodules to github"
+  task :push_all do
+    git.push_all
+  end
 end
 
 def git
