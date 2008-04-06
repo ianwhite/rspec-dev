@@ -1,6 +1,8 @@
 dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift(File.expand_path("#{dir}/example_rails_app/vendor/plugins/rspec/pre_commit/lib"))
 require "pre_commit"
+$LOAD_PATH.unshift(File.expand_path("#{dir}/lib"))
+require "rspec/git"
 
 task :default => :pre_commit
 
@@ -59,3 +61,19 @@ end
 
 desc "Fix line endings"
 task(:fix_cr_lf) {pre_commit.fix_cr_lf}
+
+namespace :git do
+  desc "Update repo & submodules"
+  task :update do
+    git.update
+  end
+
+  desc "Show status of repo & submodules"
+  task :status do
+    git.status
+  end
+end
+
+def git
+  RSpec::Git.new
+end
