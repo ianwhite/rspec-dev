@@ -13,6 +13,7 @@ h2. The Core Team
 * "Steven Baker":http://blog.lavalamp.ca/
 * "David Chelimsky":http://blog.davidchelimsky.net/
 * "Aslak Hellesøy":http://blog.aslakhellesoy.com/
+* "Pat Maddox":http://evang.eli.st/blog
 * "Dan North":http://dannorth.net/
 * "Brian Takita":http://www.pivotalblabs.com/
 
@@ -21,10 +22,12 @@ h2. The Core Team
   <tr>
     <td><img src="../images/Whats_That_Dude.jpg" /></td>
     <td><img src="http://static.flickr.com/1/127260733_84714abc76_o_d.png" /></td>
+    <td><img src="../images/pat_maddox.jpg"/></td>
   </tr>
   <tr>
     <td align="center">David and Aslak</td>
     <td align="center">Dave Astels</td>
+    <td align="center">Pat</td>
   </tr>
 </table>
 </notextile>
@@ -197,19 +200,6 @@ In alphabetical order (by last name)
 ** Patches for the rake task
 * Ben Mabey
 ** Patch for story runner exit code.
-* Pat Maddox
-** Patch [#335] get integrate_views and controller_name to work in nested example groups.
-** Patch [#320] handle redirect_to w/ SSL
-** Story Mediator - the glue that binds the plain text story parser with the rest of the system
-** Patch [#136]  example summary shows up when running stories
-** [#10] Allow stubs to yield and return values
-** [#14362] partially mocking objects that define == can blow up
-** Spec'ing routes (Rails)
-** Accepting xhr requests (Rails)
-** Multiple return values for stubs
-** Port of scaffold_resource to rspec_scaffold (Rails)
-** Contexts should call Module::included when they include a module
-** Tighter integration with Test::Unit for ActiveRecord fixtures. Speed up fixtures.
 * Dan Manges
 ** Fixed visibility problem for ActionController::Base#render in Spec::Rails
 * Mike Mangino
