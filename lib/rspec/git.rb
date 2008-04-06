@@ -20,11 +20,12 @@ module RSpec
     end
 
     def push_all
-      if (submodules << '.').all? do |r|
+      repos = (submodules << '.')
+      if repos.all? do |r|
           output = `cd #{r} && git status`
           ['On branch master', 'nothing to commit'].all? {|message| output.include?(message) }
         end
-        (submodules << '.').each do |r|
+        repos.each do |r|
           system "cd #{r} && git push"
         end
         puts "Successfully pushed changes to github"
