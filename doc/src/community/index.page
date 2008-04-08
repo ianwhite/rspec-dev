@@ -122,6 +122,7 @@ In alphabetical order (by last name)
 * Coda Hale
 ** Patch [#279] Autotest never calls the :red hook
 * Kyle Hargraves
+** Patch [#367] Yellow pending steps in story's text formatter
 ** Patch [#142] verify_rcov fails with latest rcov
 ** Patch [#10951] Odd instance variable name in rspec_model template
 ** Patch [#11608] Exclude rspec_on_rails from plugin spec runs
