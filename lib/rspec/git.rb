@@ -26,6 +26,7 @@ module RSpec
           ['On branch master', 'nothing to commit'].all? {|message| output.include?(message) }
         end
         repos.each do |r|
+          puts "\n** push #{r}"
           system "cd #{r} && git push"
         end
         puts "Successfully pushed changes to github"
