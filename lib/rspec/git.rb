@@ -1,6 +1,8 @@
 module RSpec
   class Git
     def update
+      check_for_clean_repos "Unable to update"
+      
       submodules.each do |s|
         puts "** Updating #{s[:name]}"
         unless system("cd #{s[:path]} && git pull --rebase")
@@ -37,21 +39,31 @@ module RSpec
     end
 
     def push_all
-      if repos.all? do |r|
-          output = `cd #{r[:path]} && git status`
-          ['On branch master', 'nothing to commit'].all? {|message| output.include?(message) }
-        end
-        repos.each do |r|
-          puts "** push #{r[:name]}"
-          system "cd #{r[:path]} && git push"
-        end
-        puts "Successfully pushed changes to github"
-      else
-        puts "Unable to push.  Run 'rake git:status' to view any uncommitted changes"
+      check_for_clean_repos "Unable to push"
+
+      repos.each do |r|
+        puts "** push #{r[:name]}"
+        system "cd #{r[:path]} && git push"
       end
+      puts "Successfully pushed changes to github"
     end
 
     private
+    def check_for_clean_repos(message)
+      unless all_repos_clean?
+        puts "*** #{message} ***"
+        status
+        exit 1
+      end
+    end
+    
+    def all_repos_clean?
+      repos.all? do |r|
+        output = `cd #{r[:path]} && git status`
+        ['On branch master', 'nothing to commit'].all? {|message| output.include?(message) }
+      end
+    end
+    
     def repos
       [submodules, superproject].flatten
     end
