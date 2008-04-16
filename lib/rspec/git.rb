@@ -3,7 +3,10 @@ module RSpec
     def update
       repos.each do |r|
         puts "\n** Updating #{r[:name]}"
-        system "cd #{r[:path]} && git pull --rebase"
+        unless system("cd #{r[:path]} && git pull --rebase")
+          puts "Error updating #{r[:name]}"
+          break
+        end
       end
     end
 
