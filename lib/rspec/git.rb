@@ -1,33 +1,27 @@
 module RSpec
   class Git
     def update
-      puts "** Updating parent repo"
-      if system("git pull --rebase")
-        submodules.each do |submodule|
-          puts "\n** Updating submodule: #{submodule}"
-          system "cd #{submodule} && git pull --rebase"
-        end
+      repos.each do |r|
+        puts "\n** Updating #{r[:name]}"
+        system "cd #{r[:path]} && git pull --rebase"
       end
     end
 
     def status
-      puts "** Parent repo status:"
-      system "git status"
-      submodules.each do |submodule|
-        puts "\n** #{submodule} status"
-        system "cd #{submodule} && git status"
+      repos.each do |r|
+        puts "** #{r[:name]} status"
+        system "cd #{r[:path]} && git status"
       end
     end
 
     def push_all
-      repos = (submodules << '.')
       if repos.all? do |r|
-          output = `cd #{r} && git status`
+          output = `cd #{r[:path]} && git status`
           ['On branch master', 'nothing to commit'].all? {|message| output.include?(message) }
         end
         repos.each do |r|
           puts "\n** push #{r}"
-          system "cd #{r} && git push"
+          system "cd #{r[:path]} && git push"
         end
         puts "Successfully pushed changes to github"
       else
@@ -36,10 +30,16 @@ module RSpec
     end
 
     private
+    def repos
+      [submodules, {:name => "Parent repo", :path => "."}].flatten
+    end
+    
     def submodules
-      ['RSpec.tmbundle',
-       'example_rails_app/vendor/plugins/rspec',
-       'example_rails_app/vendor/plugins/rspec-rails']
+      [
+       {:name => "TextMate Bundle", :path => 'RSpec.tmbundle'},
+       {:name => "rspec", :path => 'example_rails_app/vendor/plugins/rspec'},
+       {:name => "rspec-rails", :path => 'example_rails_app/vendor/plugins/rspec-rails'}
+      ]
     end
   end
 end
