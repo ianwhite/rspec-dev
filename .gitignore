@@ -26,3 +26,4 @@ example_rails_app/vendor/plugins/rspec-rails
 *.iml
 *.ipr
 *.iws
+*~
