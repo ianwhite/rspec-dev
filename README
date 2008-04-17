@@ -4,8 +4,7 @@
 
   git-clone git://github.com/dchelimsky/rspec-dev.git
   cd rspec-dev
-  git-submodule init
-  git-submodule update
+  rake git:update
 
 == Running RSpec's specs
 
