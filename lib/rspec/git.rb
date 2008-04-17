@@ -101,6 +101,8 @@ module RSpec
     def url_prefix
       if ENV["COMMITTER"]
         "git@github.com:dchelimsky"
+      elsif ENV["REPO_PREFIX"]
+        ENV["REPO_PREFIX"]
       else
         "git://github.com/dchelimsky"
       end
