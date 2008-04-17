@@ -3,7 +3,7 @@ rspec/pkg
 */tmtags
 example_rails_app/vendor/rails/*
 log
-RSpec.tmbundle/Support/coverage
+RSpec.tmbundle
 doc/output
 rspec/story_server/prototype/rspec_stories.html
 example_rails_app/config/database.yml
@@ -19,6 +19,8 @@ example_rails_app/spec/rcov.opts
 example_rails_app/spec/spec.opts
 example_rails_app/spec/spec_helper.rb
 example_rails_app/vendor
+example_rails_app/vendor/plugins/rspec
+example_rails_app/vendor/plugins/rspec-rails
 .DS_Store
 .emacs-project
 *.iml
