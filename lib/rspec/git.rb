@@ -53,7 +53,9 @@ module RSpec
     def all_repos_clean?
       repos.all? do |r|
         output = `cd #{r[:path]} && git status`
-        ['On branch master', 'nothing to commit'].all? {|message| output.include?(message) }
+        output.include?('On branch master') &&
+          !output.include?('Changes to be committed:') &&
+          !output.include?('Changed but not updated:')
       end
     end
     
