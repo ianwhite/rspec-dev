@@ -29,7 +29,7 @@ module RSpec
       end
     end
 
-    def push_all
+    def push
       check_for_clean_repos "Unable to push"
 
       repos.each do |r|

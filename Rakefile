@@ -7,9 +7,9 @@ def git
 end
 
 namespace :git do
-  desc "Update repo & submodules"
-  task :update_all do
-    git.update_all
+  desc "Update rspec-dev & sub-projects"
+  task :update do
+    git.update
   end
 end
 
@@ -76,14 +76,14 @@ if git.plugins_fetched?
   task(:fix_cr_lf) {pre_commit.fix_cr_lf}
   
   namespace :git do
-    desc "Show status of repo & submodules"
+    desc "Show status of rspec-dev & sub-projects"
     task :status do
       git.status
     end
   
-    desc "Push repo and submodules to github"
-    task :push_all do
-      git.push_all
+    desc "Push rspec-dev & sub-projects to github"
+    task :push do
+      git.push
     end
   end
 end
