@@ -84,7 +84,7 @@ module RSpec
     end
 
     def superproject
-      {:name => "Parent repo", :path => "."}
+      {:name => "rspec-dev", :path => "."}
     end
     
     def submodules
