@@ -1,12 +1,5 @@
 module RSpec
   class Git
-    def fetch_plugins
-      submodules.each do |s|
-        puts "** Fetching #{s[:name]}"
-        system "git clone #{s[:url]} #{s[:path]}"
-      end
-    end
-
     def plugins_fetched?
       submodules.all? {|s| File.directory?(s[:path]) }
     end
@@ -15,10 +8,15 @@ module RSpec
       check_for_clean_repos "Unable to update"
       
       repos.each do |r|
-        puts "** Updating #{r[:name]}"
-        unless system("cd #{r[:path]} && git pull --rebase")
-          puts "Error updating #{r[:name]}"
-          exit 1
+        if File.exist?(r[:path])
+          puts "** Updating #{r[:name]}"
+          unless system("cd #{r[:path]} && git pull --rebase")
+            puts "Error updating #{r[:name]}"
+            exit 1
+          end
+        else
+          puts "** Fetching #{s[:name]}"
+          system "git clone #{s[:url]} #{s[:path]}"
         end
       end
       puts "*** all repos updated successfully ***"
@@ -52,10 +50,11 @@ module RSpec
     
     def all_repos_clean?
       repos.all? do |r|
-        output = `cd #{r[:path]} && git status`
-        output.include?('On branch master') &&
-          !output.include?('Changes to be committed:') &&
-          !output.include?('Changed but not updated:')
+        !File.exist?(r[:path]) ||
+        (output = `cd #{r[:path]} && git status` &&
+         output.include?('On branch master') &&
+         !output.include?('Changes to be committed:') &&
+         !output.include?('Changed but not updated:'))
       end
     end
     

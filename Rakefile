@@ -6,6 +6,13 @@ def git
   RSpec::Git.new
 end
 
+namespace :git do
+  desc "Update repo & submodules"
+  task :update do
+    git.update
+  end
+end
+
 if git.plugins_fetched?
   $LOAD_PATH.unshift(File.expand_path("#{dir}/example_rails_app/vendor/plugins/rspec/pre_commit/lib"))
   require "pre_commit"
@@ -69,11 +76,6 @@ if git.plugins_fetched?
   task(:fix_cr_lf) {pre_commit.fix_cr_lf}
   
   namespace :git do
-    desc "Update repo & submodules"
-    task :update do
-      git.update
-    end
-  
     desc "Show status of repo & submodules"
     task :status do
       git.status
@@ -83,11 +85,6 @@ if git.plugins_fetched?
     task :push_all do
       git.push_all
     end
-  end
-else
-  desc "Fetch rspec, rspec-rails and tmbundle"
-  task :fetch_plugins do
-    git.fetch_plugins
   end
 end
 
