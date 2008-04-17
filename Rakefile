@@ -76,6 +76,11 @@ if git.plugins_fetched?
   task(:fix_cr_lf) {pre_commit.fix_cr_lf}
   
   namespace :git do
+    desc "Commit rspec-dev & sub-projects"
+    task :commit do
+      git.commit
+    end
+    
     desc "Show status of rspec-dev & sub-projects"
     task :status do
       git.status

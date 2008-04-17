@@ -42,6 +42,24 @@ module RSpec
       puts "Successfully pushed changes to github"
     end
 
+    def commit
+      if ENV['MESSAGE'].nil?
+        puts "You must pass a commit message.  Try it again with:\n" +
+          "rake git:commit MESSAGE='commit message here'"
+        return
+      end
+      
+      repos.each do |r|
+        output = `cd #{r[:path]} && git status`
+        unless output.include?('On branch master')
+          puts "*** #{r[:name]} is not on the master branch.  Skipping"
+          next
+        end
+        puts "** Committing #{r[:name]}"
+        system "cd #{r[:path]} && git commit -a -m #{ENV['MESSAGE'].inspect}"
+      end
+    end
+
     private
     def check_for_clean_repos(message)
       unless all_repos_clean?
