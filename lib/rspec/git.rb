@@ -15,8 +15,8 @@ module RSpec
             exit 1
           end
         else
-          puts "** Fetching #{s[:name]}"
-          system "git clone #{s[:url]} #{s[:path]}"
+          puts "** Fetching #{r[:name]}"
+          system "git clone #{r[:url]} #{r[:path]}"
         end
       end
       puts "*** all repos updated successfully ***"
