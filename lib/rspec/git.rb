@@ -14,32 +14,14 @@ module RSpec
     def update
       check_for_clean_repos "Unable to update"
       
-      submodules.each do |s|
-        puts "** Updating #{s[:name]}"
-        unless system("cd #{s[:path]} && git pull --rebase")
-          puts "Error updating #{s[:name]}"
+      repos.each do |r|
+        puts "** Updating #{r[:name]}"
+        unless system("cd #{r[:path]} && git pull --rebase")
+          puts "Error updating #{r[:name]}"
           exit 1
         end
       end
-
-      puts "** Updating #{superproject[:name]}"
-      # need to commit the submodule refs before updating superproject
-      # This is behind-the-scenes stuff that should be silent though
-      submodules.each {|s| `git add #{s[:path]}` }
-      `git commit -m "updated submodules"`
-
-      unless system("git pull --rebase")
-        # merge conflict for submodule refs can easily be handled
-        # by an add and continue.  So let's try adding them in case
-        # it's the only conflict.
-        submodules.each {|s| `git add #{s[:path]}` }
-        if system("git rebase --continue")
-          puts "*** Successfully handled submodule ref conflicts.  All systems go"
-        else
-          puts "*** Unable to handle submodule ref conflicts.  You should " +
-               "'git rebase --abort' and do the rebase manually."
-        end
-      end
+      puts "*** all repos updated successfully ***"
     end
     
     def status
