@@ -1,5 +1,16 @@
 module RSpec
   class Git
+    def fetch_plugins
+      submodules.each do |s|
+        puts "** Fetching #{s[:name]}"
+        system "git clone #{s[:url]} #{s[:path]}"
+      end
+    end
+
+    def plugins_fetched?
+      submodules.all? {|s| File.directory?(s[:path]) }
+    end
+    
     def update
       check_for_clean_repos "Unable to update"
       
@@ -74,10 +85,21 @@ module RSpec
     
     def submodules
       [
-       {:name => "TextMate Bundle", :path => 'RSpec.tmbundle'},
-       {:name => "rspec", :path => 'example_rails_app/vendor/plugins/rspec'},
-       {:name => "rspec-rails", :path => 'example_rails_app/vendor/plugins/rspec-rails'}
+       {:name => "TextMate Bundle", :path => 'RSpec.tmbundle',
+        :url => "#{url_prefix}/rspec-tmbundle.git" },
+       {:name => "rspec", :path => 'example_rails_app/vendor/plugins/rspec',
+        :url => "#{url_prefix}/rspec.git"},
+       {:name => "rspec-rails", :path => 'example_rails_app/vendor/plugins/rspec-rails',
+        :url => "#{url_prefix}/rspec-rails.git"}
       ]
+    end
+
+    def url_prefix
+      if ENV["COMMITTER"]
+        "git@github.com:dchelimsky"
+      else
+        "git://github.com/dchelimsky"
+      end
     end
   end
 end
