@@ -8,8 +8,8 @@ end
 
 namespace :git do
   desc "Update repo & submodules"
-  task :update do
-    git.update
+  task :update_all do
+    git.update_all
   end
 end
 

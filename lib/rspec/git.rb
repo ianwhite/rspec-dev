@@ -34,7 +34,10 @@ module RSpec
 
       repos.each do |r|
         puts "** push #{r[:name]}"
-        system "cd #{r[:path]} && git push"
+        unless system("cd #{r[:path]} && git push")
+          puts "Error pushing #{r[:name]}"
+          exit 1
+        end
       end
       puts "Successfully pushed changes to github"
     end
