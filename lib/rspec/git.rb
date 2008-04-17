@@ -10,7 +10,8 @@ module RSpec
       repos.each do |r|
         if File.exist?(r[:path])
           puts "** Updating #{r[:name]}"
-          unless system("cd #{r[:path]} && git pull --rebase")
+          target = ENV['REMOTE'] ? "#{ENV['REMOTE']} master" : ""
+          unless system("cd #{r[:path]} && git pull --rebase #{target}")
             puts "Error updating #{r[:name]}"
             exit 1
           end
