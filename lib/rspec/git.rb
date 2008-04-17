@@ -60,6 +60,18 @@ module RSpec
       end
     end
 
+    def add_remotes
+      if ENV['REPO_PREFIX'].nil? || ENV['NAME'].nil?
+        puts "You must pass a prefix and name.  Try it again with (e.g.):\n" +
+          "rake git:add_remotes REPO_PREFIX='git://github.com/dchelimsky' NAME='dc'"
+        return
+      end
+
+      repos.each do |r|
+        system "cd #{r[:path]} && git remote add #{ENV['NAME']} #{r[:url]}"
+      end
+    end
+
     private
     def check_for_clean_repos(message)
       unless all_repos_clean?
@@ -84,7 +96,8 @@ module RSpec
     end
 
     def superproject
-      {:name => "rspec-dev", :path => "."}
+      {:name => "rspec-dev", :path => ".",
+       :url => "#{url_prefix}/rspec-dev.git"}
     end
     
     def submodules

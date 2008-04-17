@@ -67,7 +67,7 @@ if git.plugins_fetched?
   task :update_dependencies do
     pre_commit.update_dependencies
   end
-  
+
   def pre_commit
     PreCommit::Rspec.new(self)
   end
@@ -89,6 +89,11 @@ if git.plugins_fetched?
     desc "Push rspec-dev & sub-projects to github"
     task :push do
       git.push
+    end
+
+    desc "Add remote references to rspec-dev & sub-projects"
+    task :add_remotes do
+      git.add_remotes
     end
   end
 end
