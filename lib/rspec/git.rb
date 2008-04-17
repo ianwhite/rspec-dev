@@ -51,7 +51,7 @@ module RSpec
     def all_repos_clean?
       repos.all? do |r|
         !File.exist?(r[:path]) ||
-        (output = `cd #{r[:path]} && git status` &&
+        (output = `cd #{r[:path]} && git status`;
          output.include?('On branch master') &&
          !output.include?('Changes to be committed:') &&
          !output.include?('Changed but not updated:'))
