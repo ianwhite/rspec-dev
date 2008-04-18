@@ -62,7 +62,7 @@ module RSpec
     end
 
     def hard_reset
-      submodules.each do |r|
+      repos.each do |r|
         puts "\n** Resetting #{r[:name]}"
         system "cd #{r[:path]} && git add . && git reset --hard"
       end
