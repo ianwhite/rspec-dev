@@ -11,6 +11,11 @@ namespace :git do
   task :update do
     git.update
   end
+
+  desc "Reset rspec-dev and sub-projects"
+  task :hard_reset do
+    git.hard_reset
+  end
 end
 
 if git.plugins_fetched?

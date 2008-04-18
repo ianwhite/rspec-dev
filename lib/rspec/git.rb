@@ -61,6 +61,14 @@ module RSpec
       end
     end
 
+    def hard_reset
+      submodules.each do |r|
+        puts "\n** Resetting #{r[:name]}"
+        system "cd #{r[:path]} && git add . && git reset --hard"
+      end
+      puts
+    end
+
     def add_remotes
       if ENV['REPO_PREFIX'].nil? || ENV['NAME'].nil?
         puts "You must pass a prefix and name.  Try it again with (e.g.):\n" +
