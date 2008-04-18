@@ -19,7 +19,7 @@ namespace :git do
 end
 
 if git.plugins_fetched?
-  $LOAD_PATH.unshift(File.expand_path("#{dir}/example_rails_app/vendor/plugins/rspec/pre_commit/lib"))
+  $LOAD_PATH.unshift(File.expand_path("#{dir}/pre_commit/lib"))
   require "pre_commit"
   
   task :default => :pre_commit
@@ -103,3 +103,11 @@ if git.plugins_fetched?
   end
 end
 
+# desc "Run this task before you commit. You should see 'OK TO COMMIT'"
+# task(:pre_commit) {core.pre_commit}
+# 
+# desc "Build the website, but do not publish it"
+# task(:website) {core.website}
+# 
+# task(:rdoc_rails) {core.rdoc_rails}
+# 
