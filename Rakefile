@@ -73,6 +73,9 @@ if git.plugins_fetched?
     pre_commit.update_dependencies
   end
 
+  desc "Build the website, but do not publish it"
+  task(:website) {core.website}
+
   def pre_commit
     PreCommit::Rspec.new(self)
   end
@@ -102,12 +105,3 @@ if git.plugins_fetched?
     end
   end
 end
-
-# desc "Run this task before you commit. You should see 'OK TO COMMIT'"
-# task(:pre_commit) {core.pre_commit}
-# 
-# desc "Build the website, but do not publish it"
-# task(:website) {core.website}
-# 
-# task(:rdoc_rails) {core.rdoc_rails}
-# 
