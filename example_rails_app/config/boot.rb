@@ -18,12 +18,12 @@ module Rails
   end
 end
 
-ENV['RSPEC_RAILS_VERSION'] ||= "edge"
+ENV['RSPEC_RAILS_VERSION'] ||= "2.0.2"
 puts "running against rails #{ENV['RSPEC_RAILS_VERSION']}"
 
 unless defined?(Rails::Initializer)
   
-  version_root = File.expand_path("#{RAILS_ROOT}/vendor/rails/#{ENV['RSPEC_RAILS_VERSION']}")
+  version_root = File.expand_path("#{RAILS_ROOT}/vendor/rails")
   if File.directory?(version_root)
     $LOAD_PATH.unshift "#{version_root}/actionpack/lib/"
     $LOAD_PATH.unshift "#{version_root}/actionmailer/lib/"
@@ -33,12 +33,5 @@ unless defined?(Rails::Initializer)
     $LOAD_PATH.unshift "#{version_root}/activesupport/lib/"
     $LOAD_PATH.unshift "#{version_root}/railties/lib/"
     require "#{version_root}/railties/lib/initializer"
-  else
-    raise "Attempting to run against rails #{version_root} but no such directory exists"
-    exit
-  end
-
-  Rails::Initializer.run(:set_load_path) do |config|
-    config.plugin_paths = File.expand_path("#{RAILS_ROOT}/../vendor/plugins")
   end
 end

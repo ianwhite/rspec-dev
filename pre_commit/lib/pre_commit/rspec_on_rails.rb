@@ -1,20 +1,25 @@
 class PreCommit::RspecOnRails < PreCommit
+  
+  RAILS_TAGS = [
+    {:version => '2.0.2', :tag => 'v2.0.2'},
+    {:version => '1.2.6', :tag => 'v1.2.6'},
+    {:version => '1.2.3', :tag => 'v1.2.3'},
+    # {:version => 'edge', :tag => 'master'},
+  ]
+  
   def pre_commit
     check_dependencies
     used_railses = []
-    VENDOR_DEPS.each do |dependency|
-      rails_dir = File.expand_path(dependency[:checkout_path])
-      rails_version = rails_version_from_dir(rails_dir)
+    RAILS_TAGS.each do |tag|
       begin
-        rspec_pre_commit(rails_version, false)
-        used_railses << rails_version
+        rspec_pre_commit(tag[:version], false)
+        used_railses << tag[:version]
       rescue Exception => e
-        unless rails_version == 'edge'
+        unless tag[:version] == 'edge'
           raise e
         end
       end
     end
-    uninstall_plugins
     puts "All specs passed against the following released versions of Rails: #{used_railses.join(", ")}"
     unless used_railses.include?('edge')
       puts "There were errors running pre_commit against edge"
@@ -25,12 +30,18 @@ class PreCommit::RspecOnRails < PreCommit
     File.basename(rails_dir)
   end
 
-  def rspec_pre_commit(rails_version=ENV['RSPEC_RAILS_VERSION'],uninstall=true)
+  def rspec_pre_commit(rails_version=ENV['RSPEC_RAILS_VERSION'],cleanup_rspec=true)
     puts "#####################################################"
     puts "running pre_commit against rails #{rails_version}"
-    puts "#####################################################"
     ENV['RSPEC_RAILS_VERSION'] = rails_version
-    cleanup(uninstall)
+    pair = RAILS_TAGS.find{|pair| pair[:version] == rails_version}
+    raise "version????" unless pair
+    puts "#####################################################"
+    Dir.chdir "#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails" do
+      sh "git checkout #{pair[:tag]}"
+    end
+    puts "#####################################################"
+    cleanup(cleanup_rspec)
     ensure_db_config
     clobber_sqlite_data
     generate_rspec
@@ -45,14 +56,14 @@ class PreCommit::RspecOnRails < PreCommit
     # a clean DB?
     rake_sh "db:test:prepare"
     sh "ruby vendor/plugins/rspec-rails/stories/all.rb"
-    cleanup(uninstall)
+    cleanup(cleanup_rspec)
   end
 
-  def cleanup(uninstall=true)
+  def cleanup(cleanup_rspec=true)
     revert_routes
     rm_generated_login_controller_files
     destroy_purchase
-    uninstall_plugins if uninstall
+    remove_generated_rspec_files if cleanup_rspec
   end
 
   def revert_routes
@@ -65,7 +76,7 @@ class PreCommit::RspecOnRails < PreCommit
     migrate_up
   end
   
-  def uninstall_plugins
+  def remove_generated_rspec_files
     rm_rf 'script/spec'
     rm_rf 'script/spec_server'
     rm_rf 'spec/spec_helper.rb'
@@ -224,76 +235,29 @@ class PreCommit::RspecOnRails < PreCommit
   end
 
   def install_dependencies
-    VENDOR_DEPS.each do |dep|
-      puts "\nChecking for #{dep[:name]} ..."
-      dest = dep[:checkout_path]
-      if File.exists?(dest)
-        puts "#{dep[:name]} already installed"
-      else
-        cmd = "svn co #{dep[:url]} #{dest}"
-        puts "Installing #{dep[:name]}"
-        puts "This may take a while."
-        puts cmd
-        system(cmd)
-        puts "Done!"
+    if File.exist?("#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails/.git")
+      puts "Rails is already installed"
+    else
+      Dir.chdir "#{RSPEC_DEV_ROOT}/example_rails_app/vendor" do
+        sh "rm -rf rails"
+        sh "git clone /Users/david/projects/ruby/rails"
+        # sh "git clone git://github.com/rails/rails.git"
       end
     end
-    puts
   end
 
   def check_dependencies
-    VENDOR_DEPS.each do |dep|
-      unless File.exist?(dep[:checkout_path])
-        raise "There is no checkout of #{dep[:checkout_path]}. Please run rake install_dependencies"
-      end
-      # Verify that the current working copy is right
-      if `svn info #{dep[:checkout_path]}` =~ /^URL: (.*)/
-        actual_url = $1
-        if actual_url != dep[:url]
-          raise "Your working copy in #{dep[:checkout_path]} points to \n#{actual_url}\nIt has moved to\n#{dep[:url]}\nPlease delete the working copy and run rake install_dependencies"
-        end
-      end
+    unless File.exist?("#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails/.git")
+      raise "Rails is not installed. Please run 'rake install_dependencies'"
     end
   end
   
   def update_dependencies
     check_dependencies
-    VENDOR_DEPS.each do |dep|
-      next if dep[:tagged?] #
-      puts "\nUpdating #{dep[:name]} ..."
-      dest = dep[:checkout_path]
-      system("svn cleanup #{dest}")
-      cmd = "svn up #{dest}"
-      puts cmd
-      system(cmd)
-      puts "Done!"
+    Dir.chdir "#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails" do
+      sh "git checkout master"
+      sh "git pull"
     end
   end
 
-  VENDOR_DEPS = [
-    {
-      :checkout_path => "#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails/2.0.2",
-      :name =>  "rails 2.0.2",
-      :url => "http://dev.rubyonrails.org/svn/rails/tags/rel_2-0-2",
-      :tagged? => true
-    },
-    {
-      :checkout_path => "#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails/1.2.6",
-      :name =>  "rails 1.2.6",
-      :url => "http://dev.rubyonrails.org/svn/rails/tags/rel_1-2-6",
-      :tagged? => true
-    },
-    {
-      :checkout_path => "#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails/1.2.3",
-      :name =>  "rails 1.2.3",
-      :url => "http://dev.rubyonrails.org/svn/rails/tags/rel_1-2-3",
-      :tagged? => true
-    },
-    # {
-    #   :checkout_path => "example_rails_app/vendor/rails/edge",
-    #   :name =>  "edge rails",
-    #   :url => "http://svn.rubyonrails.org/rails/trunk",
-    #   :tagged? => false
-    # }
-  ]
 end

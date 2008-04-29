@@ -25,7 +25,7 @@ module RSpec
     
     def status
       repos.each do |r|
-        puts "** #{r[:name]} status"
+        puts "\n** #{r[:name]} status"
         system "cd #{r[:path]} && git status"
       end
     end
