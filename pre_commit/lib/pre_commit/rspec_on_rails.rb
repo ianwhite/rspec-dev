@@ -240,8 +240,7 @@ class PreCommit::RspecOnRails < PreCommit
     else
       Dir.chdir "#{RSPEC_DEV_ROOT}/example_rails_app/vendor" do
         sh "rm -rf rails"
-        sh "git clone /Users/david/projects/ruby/rails"
-        # sh "git clone git://github.com/rails/rails.git"
+        sh "git clone git://github.com/rails/rails.git"
       end
     end
   end
