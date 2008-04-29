@@ -238,8 +238,11 @@ class PreCommit::RspecOnRails < PreCommit
     if File.exist?("#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails/.git")
       puts "Rails is already installed"
     else
+      if File.exist?("#{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails")
+        sh "rm -rf #{RSPEC_DEV_ROOT}/example_rails_app/vendor/rails"
+      end
       Dir.chdir "#{RSPEC_DEV_ROOT}/example_rails_app/vendor" do
-        sh "rm -rf rails"
+        puts "cloning rails - this might take a while"
         sh "git clone git://github.com/rails/rails.git"
       end
     end
