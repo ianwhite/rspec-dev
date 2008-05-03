@@ -12,6 +12,9 @@ namespace :git do
     git.update
   end
 
+  desc "Update rspec-dev & sub-projects"
+  task :pull => :update
+
   desc "Reset rspec-dev and sub-projects"
   task :hard_reset do
     git.hard_reset
