@@ -114,6 +114,8 @@ In alphabetical order (by last name)
 ** Patch [#14388] protect_against_forgery? helper method not being picked up by rspec_on_rails
 * Sean Geoghegan
 ** Patch [#380] to add --loadby:random option
+* gmarik
+** Patch LH[#174] to make generated view specs work properly for nested controllers
 * David Goodlad
 ** Patch for allowing non-Strings as partial_paths in view/specs
 ** Patch for file mappings for rspec/autotest integration
