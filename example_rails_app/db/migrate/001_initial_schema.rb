@@ -3,10 +3,10 @@ class InitialSchema < ActiveRecord::Migration
     create_table :people do |t|
       t.column :name, :string, :default => nil
       t.column :address, :text
-    end
+    end rescue nil
   end
 
   def self.down
-    drop_table :people
+    drop_table :people rescue nil
   end
 end

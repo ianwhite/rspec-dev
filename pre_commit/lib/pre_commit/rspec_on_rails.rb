@@ -42,9 +42,9 @@ class PreCommit::RspecOnRails < PreCommit
       sh "git checkout #{pair[:tag]}"
     end
     puts "#####################################################"
-    cleanup(cleanup_rspec)
     ensure_db_config
     clobber_sqlite_data
+    cleanup(cleanup_rspec)
     generate_rspec
 
     generate_login_controller
@@ -57,6 +57,7 @@ class PreCommit::RspecOnRails < PreCommit
     # a clean DB?
     rake_sh "db:test:prepare"
     sh "ruby vendor/plugins/rspec-rails/stories/all.rb"
+  ensure
     cleanup(cleanup_rspec)
   end
 

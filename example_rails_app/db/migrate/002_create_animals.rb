@@ -4,10 +4,10 @@ class CreateAnimals < ActiveRecord::Migration
       t.column :name,      :string, :default => nil
       t.column :person_id, :integer
       t.column :age, :float
-    end
+    end rescue nil
   end
 
   def self.down
-    drop_table :animals
+    drop_table :animals rescue nil
   end
 end
