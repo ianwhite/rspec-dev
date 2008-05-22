@@ -27,3 +27,4 @@ example_rails_app/vendor/plugins/rspec-rails
 *.ipr
 *.iws
 *~
+TAGS
