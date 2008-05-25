@@ -287,7 +287,6 @@ In alphabetical order (by last name)
 ** Patch [#9926] Rakefile - RSPEC_DEPS constant as an Array of Hashes instead of an Array of Arrays
 ** Patch [#10636] Added spec for OptionParser in Runner (Patch from Scott Taylor)
 ** Patch LH[#326] Deprecation warnings for specs that assume auto-inclusion of modules
-** Patch LH[#28] Add Foo.any_instance.stub!
 * Steve Tendon
 ** Patch [#9458] The rspec_scaffold generator does not take into account class nesting
 * Jonathan Tron
