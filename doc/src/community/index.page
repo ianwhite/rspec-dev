@@ -63,6 +63,8 @@ In alphabetical order (by last name)
 ** Paired with Aslak to iron out minor JRuby issues.
 * Mike Breen
 ** Patch [#13098] Error running "script/spec_server" after upgrading from 1.0.5 to 1.0.8
+* Roman Chernyatchik
+** Patch [#325] Spectask works better with multiple versions of ruby
 * Wincent Colaiuta
 ** Patch LH[#281] Invert sense of "spec --diff"
 ** Patch [#11254] RSpec syntax coloring and function pop-up integration in TextMate
