@@ -3,7 +3,6 @@ title: Mock Object behaviour on Real Objects
 order: 3
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

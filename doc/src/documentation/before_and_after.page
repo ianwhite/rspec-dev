@@ -3,7 +3,6 @@ title: Before and After
 order: 1
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

@@ -3,7 +3,6 @@ title: Test::Unit
 order: 4
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

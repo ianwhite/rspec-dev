@@ -3,7 +3,6 @@ title: CHANGES
 order: 3
 filter:
   - erb
-  - coderay
   - textile
 ---
-<pre><%= IO.read '../rspec/CHANGES' %></pre>
+<pre><%= IO.read '../example_rails_app/vendor/plugins/rspec/CHANGES' %></pre>

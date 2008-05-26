@@ -3,7 +3,6 @@ title: Controllers
 order: 3
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

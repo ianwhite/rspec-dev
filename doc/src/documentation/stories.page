@@ -3,7 +3,6 @@ title: Stories
 order: 5
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

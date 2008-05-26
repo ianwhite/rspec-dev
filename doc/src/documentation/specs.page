@@ -3,7 +3,6 @@ title: Specs
 order: 3
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

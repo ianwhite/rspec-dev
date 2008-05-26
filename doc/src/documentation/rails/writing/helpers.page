@@ -3,7 +3,6 @@ title: Helpers
 order: 4
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

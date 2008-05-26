@@ -3,7 +3,6 @@ title: Editors
 order: 1
 filter:
   - erb
-  - coderay
   - textile
 --- 
 
@@ -50,7 +49,7 @@ to implement your own Formatter class, typically by subclassing
 can override the <code>backtrace_line</code> method to make the output be something that works with your editor.
 Example:
 
-<coderay><%= IO.read "../rspec/examples/pure/custom_formatter.rb" %></coderay>
+<coderay><%= IO.read "../example_rails_app/vendor/plugins/rspec/examples/pure/custom_formatter.rb" %></coderay>
 
 Then, when the editor plugin launches RSpec, just make sure it uses the <code>--formatter</code> 
 option to specify *your* custom formatter. Note that you will probably have to use <code>--require</code> 

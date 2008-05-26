@@ -3,7 +3,6 @@ title: Archive
 order: 8
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

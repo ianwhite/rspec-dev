@@ -3,7 +3,6 @@ title: Examples
 order: 2
 filter:
   - erb
-  - coderay
   - textile
 --- 
 
@@ -13,12 +12,12 @@ Here is an example of a spec for a Stack. We start with a group of shared exampl
 These won't get run directly, but can be included by, and run in the context of
 other example groups.
 
-<coderay><%= IO.read "../rspec/examples/pure/shared_stack_examples.rb" %></coderay>
+<coderay><%= IO.read "../example_rails_app/vendor/plugins/rspec/examples/pure/shared_stack_examples.rb" %></coderay>
 
 And here is the group that runs them. Note the nesting, which is a new feature in
 RSpec 1.1.
 
-<coderay><%= IO.read "../rspec/examples/pure/stack_spec_with_nested_example_groups.rb" %></coderay>
+<coderay><%= IO.read "../example_rails_app/vendor/plugins/rspec/examples/pure/stack_spec_with_nested_example_groups.rb" %></coderay>
 
 And here is what you see when you run these examples in TextMate:
 

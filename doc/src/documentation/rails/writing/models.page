@@ -3,7 +3,6 @@ title: Models
 order: 1
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

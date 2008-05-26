@@ -3,7 +3,6 @@ title: Other Mock/Stub Frameworks
 order: 4
 filter:
   - erb
-  - coderay
   - textile
 --- 
 
@@ -37,7 +36,7 @@ If you have a different framework that is not supported directly by RSpec, you c
 choose that framework instead by creating an adapter and telling RSpec where to find it.
 Here is RSpec's own adapter as an example:
 
-<coderay><%= IO.read "../rspec/plugins/mock_frameworks/rspec.rb" %></coderay>
+<coderay><%= IO.read "../example_rails_app/vendor/plugins/rspec/plugins/mock_frameworks/rspec.rb" %></coderay>
 
 This file must require any libraries or resources that implement the framework, and then define
 a <code>Spec::Plugins::MockFramework</code> module with the following methods:

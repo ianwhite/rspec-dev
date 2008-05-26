@@ -3,7 +3,6 @@ title: Mock Objects
 order: 6
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

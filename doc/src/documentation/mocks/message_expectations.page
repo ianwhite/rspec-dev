@@ -3,7 +3,6 @@ title: Message Expectations
 order: 1
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

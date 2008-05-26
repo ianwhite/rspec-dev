@@ -3,7 +3,6 @@ title: Writing
 order: 2
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

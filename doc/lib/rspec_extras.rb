@@ -1,57 +1,60 @@
 module Webby
-  class PagesDB
-    def immediate_children( page, opts = {} )
-      root = page.dir == "" ? "" : "#{page.dir}/"
-      rgxp = Regexp.new "\\A#{root}[^/]+$"
-      keys = @db.keys.find_all {|k| rgxp =~ k}
+  module Resources
+    class DB
+      def immediate_children( page, opts = {} )
+        root = page.dir == "" ? "" : "#{page.dir}/"
+        rgxp = Regexp.new "\\A#{root}[^/]+$"
+        keys = @db.keys.find_all {|k| rgxp =~ k}
 
-      ary  = keys.map {|k| @db[k]}
-      ary.flatten!
+        ary  = keys.map {|k| @db[k]}
+        ary.flatten!
 
-      return ary unless opts.has_key? :sort_by
+        return ary unless opts.has_key? :sort_by
 
-      m = opts[:sort_by]
-      ary.sort! {|a,b| a.__send__(m) <=> b.__send__(m)}
-      ary.reverse! if opts[:reverse]
-      ary
-    end
-  end
-  
-  class Resource
-    def link
-      "<a href=\"#{url}\">#{title}</a>"
-    end
-    
-    def order
-      (@mdata['order'] || 10000).to_i
-    end
-    
-    def parent
-      parent_path = filename == 'index' ? dir.split("/")[0..-2].join("/") : dir
-      p = self.class.pages.find( :filename => 'index', :in_directory => parent_path ) rescue nil
-      p == self ? nil : p
-    end
-    
-    def path_from_root
-      resources = []
-      resource = self
-      while(resource)
-        resources << resource
-        resource = resource.parent
+        m = opts[:sort_by]
+        ary.sort! {|a,b| a.__send__(m) <=> b.__send__(m)}
+        ary.reverse! if opts[:reverse]
+        ary
       end
-      resources.reverse
-    end
-    
-    def siblings
-      self.class.pages.siblings(self).reject{|p| p.title.nil?}
     end
 
-    def immediate_children
-      self.class.pages.immediate_children(self).reject{|p| p.title.nil?}.select{|p| p.filename == 'index'}
+    class Resource
+      def link
+        "<a href=\"#{url}\">#{title}</a>"
+      end
+    
+      def order
+        (@mdata['order'] || 10000).to_i
+      end
+    
+      def parent
+        parent_path = filename == 'index' ? dir.split("/")[0..-2].join("/") : dir
+        p = self.class.pages.find( :filename => 'index', :in_directory => parent_path ) rescue nil
+        p == self ? nil : p
+      end
+    
+      def path_from_root
+        resources = []
+        resource = self
+        while(resource)
+          resources << resource
+          resource = resource.parent
+        end
+        resources.reverse
+      end
+    
+      def siblings
+        Webby::Resources.pages.siblings(self).reject{|p| p.title.nil?}
+      end
+
+      def immediate_children
+        Webby::Resources.pages.immediate_children(self).reject{|p| p.title.nil?}.select{|p| p.filename == 'index'}
+      end
     end
   end
   
   require File.dirname(__FILE__) + '/../../example_rails_app/vendor/plugins/rspec/lib/spec/version'
+  
   class Renderer
     def rspec_version
       Spec::VERSION::STRING

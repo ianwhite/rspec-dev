@@ -3,7 +3,6 @@ title: Spec::Rails
 order: 7
 filter:
   - erb
-  - coderay
   - textile
 --- 
 

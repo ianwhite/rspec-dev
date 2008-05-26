@@ -3,7 +3,6 @@ title: Generators
 order: 3
 filter:
   - erb
-  - coderay
   - textile
 --- 
 
