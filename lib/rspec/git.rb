@@ -35,7 +35,7 @@ module RSpec
 
       repos.each do |r|
         puts "** push #{r[:name]}"
-        unless system("cd #{r[:path]} && git push")
+        unless system("cd #{r[:path]} && git push && git push --tags")
           puts "Error pushing #{r[:name]}"
           exit 1
         end
@@ -78,6 +78,17 @@ module RSpec
 
       repos.each do |r|
         system "cd #{r[:path]} && git remote add #{ENV['NAME']} #{r[:url]}"
+      end
+    end
+    
+    def tag
+      if ENV['TAG'].nil?
+        puts "You must pass a tag. Try again like so:\n" +
+          "  TAG=1.1.4 rake git:tag"
+        return
+      end
+      repos.each do |r|
+        system "cd #{r[:path]} && git tag #{ENV['TAG']}"
       end
     end
 

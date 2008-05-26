@@ -19,6 +19,11 @@ namespace :git do
   task :hard_reset do
     git.hard_reset
   end
+  
+  desc "Tag rspec-dev and sub-projects"
+  task :tag do
+    git.tag
+  end
 end
 
 if git.plugins_fetched?
