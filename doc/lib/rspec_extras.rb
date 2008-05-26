@@ -126,7 +126,8 @@ module Webby
   end
 end
 
-require 'webby/helpers'
+# This patches a bug in webby-0.8.2 in which the coderay method fails to add a
+# newline resulting in webby formatting problems.
 module Webby::Helpers::CodeRayHelper
   alias :orig_coderay :coderay
   
