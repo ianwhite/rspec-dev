@@ -21,12 +21,12 @@ Customer: It should have a balance of $0.
 
 Here's how we express that conversation in RSpec:
 
-<coderay>describe Account, " when first created" do
+<% coderay do -%>describe Account, " when first created" do
   it "should have a balance of $0" do
     ...
   end
 end
-</coderay>
+<% end -%>
 
 When you execute this example, RSpec can provide a report like this:
 
@@ -42,7 +42,7 @@ h2. A Bit More Detail
 
 Here's how the example might look with some more code filled in:
 
-<coderay>describe Account, " when first created" do
+<% coderay do -%>describe Account, " when first created" do
 
   before do
     @account = Account.new
@@ -57,7 +57,7 @@ Here's how the example might look with some more code filled in:
   end
 
 end
-</coderay>
+<% end -%>
 
 The <code>#describe</code> method returns an <code>ExampleGroup</code> object,
 which contains a group of examples of a particular behaviour of the system
@@ -80,7 +80,7 @@ You can use <code>#before</code> and/or <code>#after</code> to define code
 that executes before and after each example or only once per
 <code>ExampleGroup</code>:
 
-<coderay>describe Thing do
+<% coderay do -%>describe Thing do
   before(:all) do
     # This is run once and only once, before all of the examples
     # and before any before(:each) blocks.
@@ -116,7 +116,7 @@ that executes before and after each example or only once per
   end
   
 end
-</coderay>
+<% end -%>
 
 <b>Warning</b>: The use of <code>#before(:all)</code> and <code>#after(:all)</code> is
 generally discouraged because it introduces dependencies between the Examples.
@@ -126,7 +126,7 @@ h2. Helper Methods
 
 You can write helper methods directly within an Example Group:
 
-<coderay>describe "..." do
+<% coderay do -%>describe "..." do
 
   it "..." do
     helper_method
@@ -137,14 +137,14 @@ You can write helper methods directly within an Example Group:
   end
 
 end
-</coderay>
+<% end -%>
 
 h2. Reusable Helper Methods
 
 You can include helper methods in multiple ExampleGroups by expressing them within
 a module, and then including that module in your ExampleGroup:
 
-<coderay>module AccountExampleHelperMethods
+<% coderay do -%>module AccountExampleHelperMethods
   def helper_method
     ...
   end
@@ -161,7 +161,7 @@ describe "A new account" do
     @account.balance.should eql(Money.new(0, :dollars))
   end
 end
-</coderay>
+<% end -%>
 
 h2. Shared Example Groups
 
@@ -172,17 +172,17 @@ both large and small.
 
 First, factor out the "shared" behavior:
 
-<coderay>
+<% coderay do -%>
 describe "all editions", :shared => true do
   it "should behave like all editions" do
   end
 end
-</coderay>
+<% end -%>
 
 then when you need define the behavior for the Large and Small editions, 
 reference the shared behavior using the 'it_should_behave_like' method.
 
-<coderay>describe "SmallEdition" do
+<% coderay do -%>describe "SmallEdition" do
   it_should_behave_like "all editions"
 
   it "should also behave like a small edition" do
@@ -195,7 +195,7 @@ describe "LargeEdition" do
   it "should also behave like a large edition" do
   end
 end
-</coderay>
+<% end -%>
 
 it_should_behave_like will search for an ExampleGroup by its description string, in
 this case, "all editions"
@@ -215,7 +215,7 @@ Multiple shared example groups may be referenced in one (non-shared) group.
 
 Shared example groups may be included in other shared groups:
 
-<coderay>describe "All Employees", :shared => true do
+<% coderay do -%>describe "All Employees", :shared => true do
   it "should be payable" do
     @employee.should respond_to(:calculate_pay)
   end
@@ -245,7 +245,7 @@ Officer
 - should be payable
 - should be bonusable
 - should be optionable
-</coderay>
+<% end -%>
 
 h2. Pending Examples
 
@@ -253,32 +253,32 @@ There are three ways to mark an example as "pending."
 
 h3. Leave out the block:
 
-<coderay>
+<% coderay do -%>
 it "should say foo"
-</coderay>
+<% end -%>
 
 The output will say PENDING (Not Yet Implemented).
 
 h3. Use the pending method with no block:
 
-<coderay>
+<% coderay do -%>
 it "should say foo" do
   pending("get the vocal chords working")
   subject.should say("foo")
 end
-</coderay>
+<% end -%>
 
 The output will say PENDING (get the vocal chords working).
 
 h3. Use the pending method with a block:
 
-<coderay>
+<% coderay do -%>
 it "should say foo" do
   pending("get the vocal chords working") do
     subject.should say("foo")
   end
 end
-</coderay>
+<% end -%>
 
 The output will say PENDING (get the vocal chords working), and the
 example will fail telling you to it is FIXED as soon as the body of

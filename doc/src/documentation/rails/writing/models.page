@@ -17,22 +17,22 @@ See "Spec::Rails::Expectations":../../../rdoc-rails/index.html for more detail.
 
 h3. Records
 
-<coderay>
+<% coderay do -%>
 Model.should have(:no).records
 Model.should have(1).record
 Model.should have(3).records
-</coderay>
+<% end -%>
 
 This is a shortcut for <code>Model.find(:all).length.should == 3</code>.
 
 h3. Errors
 
-<coderay>
+<% coderay do -%>
 model.should have(:no).errors_on(:attribute)
 model.should have(1).error_on(:attribute)
 model.should have(3).errors_on(:attribute)
-</coderay>
+<% end -%>
 
 h2. Sample Model Examples
 
-<coderay><%= IO.read "../example_rails_app/spec/models/person_spec.rb" %></coderay>
+<% coderay do -%><%= IO.read "../example_rails_app/spec/models/person_spec.rb" %><% end -%>

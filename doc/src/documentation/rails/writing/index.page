@@ -32,11 +32,11 @@ you will not get the correct ExampleGroup subclass. If you prefer to disregard
 this convention, you can get the correct ExampleGroup subclass by passing a
 hash to the describe method:
 
-<coderay>
+<% coderay do -%>
 describe "some model", :type => :model do
   ...
 end
-</coderay>
+<% end -%>
 
 This works with <code>:model, :view, :controller and :helper</code>.
 

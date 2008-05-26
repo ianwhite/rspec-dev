@@ -35,7 +35,7 @@ etc)
 
 Wherever feasible, submit a complete spec we can run - something like:
 
-<coderay>
+<% coderay do -%>
 describe "My Problem" do
   it "can be reproduced as follows" do
     # Why doesn't this work?
@@ -43,7 +43,7 @@ describe "My Problem" do
     true.should be_true
   end
 end
-</coderay>
+<% end -%>
 
 This will make us more likely to look at it quickly.
 

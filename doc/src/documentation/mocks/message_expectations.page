@@ -13,16 +13,16 @@ should receive a specific message during the execution of an example.
 
 h3. Expecting Messages
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(<message>)
-</coderay>
+<% end -%>
 
 The <code>message</code> argument is a symbol that is the name of a message 
 that you want the mock to expect.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_not_receive(:msg)
-</coderay>
+<% end -%>
 
 An exception is raised if the message is ever received.
 This is equivalent to not specifying the reception of :msg,
@@ -30,30 +30,30 @@ but it's more declarative and useful for humans.
 
 h3. Expecting Arguments
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(<args>)
 my_mock.should_receive(:msg).once.with(<args>)
-</coderay>
+<% end -%>
 
 for example: 
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(1, 2, 3)
 my_mock.should_receive(:msg).once.with(1, 2, 3)
-</coderay>
+<% end -%>
 
 The <code>args</code> argument is a series of arguments (e.g. 1, 2, 3) that are 
 expected to be passed as arguments to the associated message.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(:no_args)
-</coderay>
+<% end -%>
 
 The message (<code>msg</code>) is expected to be passed no arguments.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(:any_args)
-</coderay>
+<% end -%>
 
 Any arguments (and any number of arguments) are to be accepted. This includes 
 cases where no arguments are provided. *This is the default when no <code>with()</code> 
@@ -68,55 +68,55 @@ h4. :anything
 
 accepts any value for this argument, e.g.:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(1, :anything, "A")
-</coderay>
+<% end -%>
 
 h4. :numeric
 
 accepts any numeric value for this argument, e.g.:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(a, :numeric, "b")
-</coderay>
+<% end -%>
 
 h4. :boolean
 
 accepts a boolean value for this argument, e.g.:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(a, :boolean, "b")
-</coderay>
+<% end -%>
 
 h4. :string
 
 accepts any string for this argument, e.g.:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(a, :string, "b")
-</coderay>
+<% end -%>
   
 h4. duck_type(message(s))
 
 accepts any object that responds to the prescribed message(s), e.g.:
 
-<coderay>
+<% coderay do -%>
 #accepts a Fixnum for the second arg
 my_mock.should_receive(:msg).with(a, duck_type(:abs, :div), "b") 
-</coderay>
+<% end -%>
 
 h4. /regular expressions/ 
 
 matches a String against a regular expression. If a regular expression is submitted, compares the two expressions for equality
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(/bcd/)
 
 my_mock.msg "abcde" #passes 
 my_mock.msg /bcd/ #passes 
 my_mock.msg "def" #fails
 my_mock.msg /bcde/ #fails
-</coderay>
+<% end -%>
 
 h3. Receive Counts
 
@@ -125,69 +125,69 @@ be called once. You can make the expected counts explicit using the following:
 
 h4. Precise Counts
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once
-</coderay>
+<% end -%>
 
 An exception is raised if the message is never received, or it is received more than once.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).twice
-</coderay>
+<% end -%>
 
 An exception is raised if the message is received anything but two times.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).exactly(n).times
-</coderay>
+<% end -%>
 
 An exception is raised if the message is received anything but <code>n</code> times.
 
 h4. Relative Counts - at_least
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).at_least(:once)
-</coderay>
+<% end -%>
 
 An exception is raised if the message is never received.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).at_least(:twice)
-</coderay>
+<% end -%>
 
 An exception is raised if the message is never received or is received only once.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).at_least(n).times
-</coderay>
+<% end -%>
 
 An exception is raised if the message is received fewer than <code>n</code> times.
 
 h4. Relative Counts - at_most
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).at_most(:once)
-</coderay>
+<% end -%>
 
 An exception is raised if the message is received more than once (does not raise if message is never receieved).
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).at_most(:twice)
-</coderay>
+<% end -%>
 
 An exception is raised if the message is received more than twice (does not raise if message is never receieved).
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).at_most(n).times
-</coderay>
+<% end -%>
 
 An exception is raised if the message is received more than <code>n</code> times (does not raise if message is never receieved).
 
 h4. Explicitly Imprecise Counts
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).any_number_of_times
-</coderay>
+<% end -%>
 
 The message can be received 0 or more times.
 
@@ -195,17 +195,17 @@ h3. Return Values
 
 h4. Single return value
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once.and_return(<value>)
-</coderay>
+<% end -%>
 
 Each time the expected message is received, <code>value</code> will be returned as the result.
 
 h4. Consecutive return values
 
-<coderay>
+<% coderay do -%>
 and_return(<value-1>, <value-2>, ..., <value-n>)
-</coderay>
+<% end -%>
 
 When the expected message is received, <code>value-i</code> will be returned as
 the result for the ith reception of the message. After the message has been
@@ -214,51 +214,51 @@ subsequent receives.
 
 h4. Computed return value
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once.and_return {...} 
-</coderay>
+<% end -%>
 
 When the expected message is received, the result of evaluating the supplied
 block will be returned as the result. The block is passed any arguments passed
 as arguments of the message. This capability can be used to compute return 
 values based on the arguments.  For example:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).with(:numeric, :numeric) once.and_return {|a, b| a + b}
-</coderay>
+<% end -%>
 
 h3. Raising and Throwing
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once.and_raise(<exception>)
-</coderay>
+<% end -%>
 
 Tells the mock to raise an exception instead of returning a value.
 &lt;exception> may be any Exception class, an instance of
 any Exception class, or a String (in which case a RuntimeError will be raised
 with that String as its message).
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once.and_throw(<symbol>) 
-</coderay>
+<% end -%>
 
 Tells the mock to throw a symbol instead of returning a value.
 
 h3. Yielding
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once.and_yield(<value-1>, <value-2>, ..., <value-n>)
-</coderay>
+<% end -%>
 
 When the expected message is received, the mock will yield the values to the passed block.
 
 To mock a method which yields values multiple times, and_yield can be chained.
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg).once.and_yield(<value-0-1>, <value-0-2>, ..., <value-0-n>).
                                   and_yield(<value-1-1>, <value-1-2>, ..., <value-1-n>).
                                   and_yield(<value-2-1>, <value-2-2>, ..., <value-2-n>)
-</coderay>
+<% end -%>
 
 h3. Ordering
 
@@ -267,20 +267,20 @@ It shouldn't be the case very often, but it can be handy at times.
 
 Labeling expectations as being ordered is done by the <code>ordered</code> call:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:flip).once.ordered
 my_mock.should_receive(:flop).once.ordered
-</coderay>
+<% end -%>
 
 If the send of <code>flop</code> is seen before <code>flip</code> the specification will fail.
 
 Of course, chains of ordered expectations can be set up:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:one).ordered
 my_mock.should_receive(:two).ordered
 my_mock.should_receive(:three).ordered
-</coderay>
+<% end -%>
 
 The expected order is the order in which the expectations are declared.
 
@@ -289,7 +289,7 @@ Only the order of expectations tagged with the <code>ordered</code> call is sign
 Likewise, calls to order-independent methods can be made in any order, even interspersed with 
 calls to order-dependent methods.  For example:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:zero)
 my_mock.should_receive(:one).ordered
 my_mock.should_receive(:two).ordered
@@ -300,7 +300,7 @@ my_mock.one
 my_mock.one_and_a_half
 my_mock.zero
 my_mock.two
-</coderay>
+<% end -%>
 
 h3. Arbitrary Handling of Received Messages
 
@@ -308,13 +308,13 @@ You can supply a block to a message expectation. When the message is received
 by the mock, the block is passed any arguments and evaluated. The result is
 the return value of the block. For example:
 
-<coderay>
+<% coderay do -%>
 my_mock.should_receive(:msg) { |a, b| 
   a.should be_true
   b.should_not include('mice')
   "Chunky bacon!"
 }
-</coderay>
+<% end -%>
 
 This allows arbitrary argument validation and result computation.  It's handy and kind of cool to be able to 
 do this, but it is advised to not use this form in most situations.  Mocks should not be functional.  

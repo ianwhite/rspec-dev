@@ -15,9 +15,9 @@ on any object in your system.
 One common use of this support is isolating examples from ActiveRecord (and
 therefore the database) in Ruby on Rails examples.
 
-<coderay>
+<% coderay do -%>
 MyModel.should_receive(:find).with(id).and_return(@mock_model_instance)
-</coderay>
+<% end -%>
 
 Controlling the behaviour of the class level methods (for example, having them
 return a mock object instead of a real instance of the model class) allows you

@@ -43,7 +43,7 @@ Story: transfer from savings to checking account
 Each Given, When and Then is a Step. The Ands are each the same kind as the previous Step.
 Steps get defined in Ruby like this (detail left out for brevity):
 
-<coderay>
+<% coderay(:lang => 'ruby') do -%>
 steps_for(:accounts) do
   Given("my $account_type account balance is $amount") do |account_type, amount|
     create_account(account_type, amount)
@@ -55,19 +55,18 @@ steps_for(:accounts) do
     get_account(account_type).should have_a_balance_of(amount)
   end
 end
-</coderay>
+<% end -%>
 
 Then run the Story like this:
 
-<coderay>
+<% coderay(:lang => 'ruby') do -%>
 with_steps_for :accounts do
   run 'path/to/file/with/story'
 end
-</coderay>
+<% end -%>
 
 h2. Spec Framework
 
-<notextile>
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td width="50%">
@@ -75,7 +74,8 @@ h2. Spec Framework
   Start with a very simple example that expresses
   some basic desired behaviour.
 </p>
-<coderay>
+
+<% coderay do -%>
 # bowling_spec.rb
 require 'bowling'
 
@@ -89,7 +89,8 @@ describe Bowling do
     @bowling.score.should == 0
   end
 end
-</coderay>
+<% end -%>
+
 <p>
   Run the example and watch it fail.
 </p>
@@ -103,7 +104,8 @@ end
   Now write
   just enough code to make it pass.
 </p>
-<coderay>
+
+<% coderay do -%>
 # bowling.rb
 class Bowling
   def hit(pins)
@@ -113,7 +115,7 @@ class Bowling
     0
   end
 end
-</coderay>
+<% end -%>
 <p>
 Run the example and bask in the joy that is green.
 </p>
@@ -130,7 +132,6 @@ Finished in 0.007534 seconds
     </td>
   </tr>
 </table>
-</notextile>
 
 h2. Take very small steps
 

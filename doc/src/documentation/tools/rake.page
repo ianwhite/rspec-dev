@@ -15,7 +15,7 @@ h3. Rake task example
 
 This is a snippet from RSpec's own Rakefile. It creates a task to run the examples.
 
-<coderay><%= IO.read "../example_rails_app/vendor/plugins/rspec/rake_tasks/examples.rake" %></coderay>
+<% coderay do -%><%= IO.read "../example_rails_app/vendor/plugins/rspec/rake_tasks/examples.rake" %><% end -%>
 
 It can be invoked from the command line with:
 
@@ -27,6 +27,6 @@ Also see the "RCov":rcov.html page for info about how to generate a coverage rep
 
 h3. Generate HTML report
 
-<coderay><%= IO.read "../example_rails_app/vendor/plugins/rspec/rake_tasks/failing_examples_with_html.rake" %></coderay>
+<% coderay do -%><%= IO.read "../example_rails_app/vendor/plugins/rspec/rake_tasks/failing_examples_with_html.rake" %><% end -%>
 
 This will write a HTML file that looks like "this":failing_examples.html.

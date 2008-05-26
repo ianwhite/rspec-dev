@@ -74,7 +74,7 @@ h2. Naming conventions
 For clarity and consistency, RSpec uses a slightly different naming convention
 for directories and Rake tasks than what you get from the Test::Unit testing built into rails.
 
-<coderay>
+<% coderay do -%>
 project
   |
   +--app
@@ -94,7 +94,7 @@ project
       +-- models
       |
       +-- views
-</coderay>
+<% end -%>
 
 The Rake tasks are named accordingly.
 

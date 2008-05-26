@@ -13,11 +13,11 @@ Helper Examples live in $RAILS_ROOT/spec/helpers/.
 Writing specs for your helpers is a snap. Just tell the Example Group the name of the
 helper ...
 
-<coderay>
+<% coderay do -%>
 describe RegistrationHelper do
   ...
 end
-</coderay>
+<% end -%>
 
 ... and the Example Group will expose an object that includes the helper.
 
@@ -30,4 +30,4 @@ includes the helper. See example below.
 
 h2. Example Helper Spec
 
-<coderay><%= IO.read "../example_rails_app/spec/helpers/people_helper_spec.rb" %></coderay>
+<% coderay do -%><%= IO.read "../example_rails_app/spec/helpers/people_helper_spec.rb" %><% end -%>

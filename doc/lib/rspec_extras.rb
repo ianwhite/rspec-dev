@@ -125,3 +125,16 @@ module Webby
     end
   end
 end
+
+require 'webby/helpers'
+module Webby::Helpers::CodeRayHelper
+  alias :orig_coderay :coderay
+  
+  def coderay( *args, &block )
+    orig_coderay *args, &block
+    buffer = eval('_erbout', block.binding)
+    pos = buffer.length
+    buffer[pos..-1] = "\n"
+    return
+  end
+end
