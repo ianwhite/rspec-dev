@@ -27,18 +27,12 @@ module Webby
         (@mdata['order'] || 10000).to_i
       end
     
-      def parent
-        parent_path = filename == 'index' ? dir.split("/")[0..-2].join("/") : dir
-        p = self.class.pages.find( :filename => 'index', :in_directory => parent_path ) rescue nil
-        p == self ? nil : p
-      end
-    
       def path_from_root
         resources = []
         resource = self
         while(resource)
           resources << resource
-          resource = resource.parent
+          resource = Webby::Resources.pages.parent_of(resource)
         end
         resources.reverse
       end
@@ -77,7 +71,7 @@ module Webby
           <% if p != page %>
             <li><%= p.link %></li>
           <% else %>
-            <li class="selected"><span><%= p.title %></span></li>
+            <li class="current"><%= p.link %></li>
           <% end %>
         <% end %>
         </ul>
@@ -91,8 +85,6 @@ module Webby
       else
         []
       end
-      
-      sanity_check(pages)
       
       b = binding
       ERB.new(<<-EOF, nil, '-').result(b)
@@ -116,13 +108,6 @@ module Webby
       EOF
     end
     
-    def sanity_check(pages)
-      orders = pages.map{|p| p.order}
-      expected_order = (1..pages.length).to_a
-      if orders != expected_order
-        raise "Non explicit page ordering:\n" + pages.map{|p| "#{p.order} : #{p.path}"}.join("\n")
-      end
-    end
   end
 end
 

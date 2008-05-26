@@ -37,9 +37,14 @@ div.breadcrumbs ul li {
 	background-repeat: no-repeat;
 	padding-right: 20px;
 }
+
 div.breadcrumbs ul li.selected {
 	background-image: none;
 	padding-right: 0;
+}
+
+div.breadcrumbs ul li.current {
+	background-image: none;
 }
 
 div.breadcrumbs ul li a {
