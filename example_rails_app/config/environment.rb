@@ -15,7 +15,6 @@ def in_memory_database?
 end
 
 if in_memory_database?
-  puts "creating sqlite in memory database"
-  # load "#{RAILS_ROOT}/db/schema.rb" # use db agnostic schema by default
+  load "#{RAILS_ROOT}/db/schema.rb" # use db agnostic schema by default
   ActiveRecord::Migrator.up('db/migrate') # use migrations
 end
