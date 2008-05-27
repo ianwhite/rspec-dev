@@ -91,6 +91,8 @@ In alphabetical order (by last name)
 * Ian Dees
 ** Patch LH[#183] quiet the Story Runner backtrace
 ** Patch [#11917] Cleaner Spec::Ui error for failed Selenium connection
+* Rick DeNatale
+** Patch LH[#332] hash_including mock argument matcher
 * Craig Demyanovich 
 ** Patch LH[#241] Add support for should_not render_template
 ** Zach Dennis
