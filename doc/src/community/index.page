@@ -153,6 +153,8 @@ In alphabetical order (by last name)
 ** Port of Kevin Clark's ARTS to RSpec
 * Eiji Ienaga
 ** Patch LH[#404] Fixed error in documentation
+* Gerrit Kaiser
+** Patch LH[#230] mock(:null_object=>true) plays nice with HTML
 * Shintaro Kakutani
 ** Patch LH[#235] ActionView::Base.base_view_path isn't clear against Rails 2.0.2
 ** Patch [#13814] RSpec on Rails w/ fixture-scenarios
