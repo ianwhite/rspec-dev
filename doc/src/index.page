@@ -145,5 +145,5 @@ h2. Take the first step now!
 
 <pre>$ gem install rspec</pre>
 
-(See special installation instructions for "Spec::Rails":documentation/rails/install.html)
+(See special installation instructions for "Spec::Rails":http://github.com/dchelimsky/rspec-rails/wikis/home)
 

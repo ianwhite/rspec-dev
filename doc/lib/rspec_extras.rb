@@ -95,7 +95,7 @@ module Webby
             <%= p.link %>
           </li>
         <% end %>
-        <% if page.url == '/'  %>
+        <% if page.url == '/' %>
           <li>
             <a href="/rdoc/">RDoc</a>
           </li>
@@ -103,6 +103,11 @@ module Webby
             <a href="/rdoc-rails/">RDoc-Rails</a>
           </li>
         <% end %>
+        <% if page.url == '/documentation/rails' -%>
+          <li>
+            <a href="http://github.com/dchelimsky/rspec-rails/wikis/home">Install</a>
+          </li>
+        <% end -%>
         </ul>
       </div>
       EOF
