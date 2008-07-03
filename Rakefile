@@ -1,6 +1,9 @@
 dir = File.dirname(__FILE__)
-$LOAD_PATH.unshift(File.expand_path("#{dir}/lib"))
+$:.unshift(File.expand_path("#{dir}/lib"))
+$:.unshift(File.expand_path("#{dir}/example_rails_app/vendor/plugins/rspec/lib"))
 require "rspec/git"
+require "spec/version"
+require 'hoe'
 
 def git
   RSpec::Git.new
@@ -119,3 +122,54 @@ end
 #   t.spec_files = FileList['spec/**/*_spec.rb']
 #   t.spec_opts = ['--format html:../../../../doc/output/report.html', '--format progress','--backtrace']
 # end
+
+def assign_version
+  ENV["VERSION"] or abort "Must supply VERSION=x.y.z"
+end
+
+desc "Package the RSpec.tmbundle"
+task :package_tmbundle do
+  version = assign_version
+  mkdir 'pkg' rescue nil
+  rm_rf "pkg/RSpec-#{version}.tmbundle" rescue nil
+  `git clone RSpec.tmbundle pkg/RSpec-#{version}.tmbundle`
+  rm_rf "pkg/RSpec-#{version}.tmbundle/.git"
+  Dir.chdir 'pkg' do
+    `tar zcvf RSpec-#{version}.tmbundle.tgz RSpec-#{version}.tmbundle`
+  end
+end
+
+task :clobber_pkg do
+  rm_rf "pkg"
+end
+task :clobber => :clobber_pkg
+
+task :release_rspec do
+  version = assign_version
+  Dir.chdir 'example_rails_app/vendor/plugins/rspec' do
+    sh 'rake release'
+  end
+end
+
+task :release_rspec_rails do
+  version = assign_version
+  Dir.chdir 'example_rails_app/vendor/plugins/rspec-rails' do
+    sh 'rake release'
+  end
+end
+
+task :release_tmbundle do |t|
+  version = assign_version
+  abort "Versions don't match #{version} vs #{Spec::VERSION::STRING}" unless version == Spec::VERSION::STRING
+  
+  rubyforge = RubyForge.new.configure
+  puts "Logging in to rubyforge ..."
+  rubyforge.login
+  
+  puts "Releasing rspec-rails version #{version} ..."
+  rubyforge.add_file('rspec', 'rspec', Spec::VERSION::STRING, "pkg/RSpec-#{version}.tmbundle.tgz")
+end
+  
+task :release_tmbundle => :package_tmbundle
+
+task :release => [:release_rspec, :release_rspec_rails, :release_tmbundle]
