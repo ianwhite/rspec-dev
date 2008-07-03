@@ -43,8 +43,3 @@ the Ruby core and stdlib - with a few exceptions:
 * The spec command line uses diff-lcs when --diff is specified.
 * The spec command line uses heckle when --heckle is specified.
 * The Spec::Rake::SpecTask needs RCov if RCov is enabled in the task.
-
-== MORE INFORMATION:
-
-* http://rspec.info
-* 
