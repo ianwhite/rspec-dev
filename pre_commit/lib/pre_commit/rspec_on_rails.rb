@@ -83,6 +83,7 @@ class PreCommit::RspecOnRails < PreCommit
     rm_rf 'spec/spec_helper.rb'
     rm_rf 'spec/spec.opts'
     rm_rf 'spec/rcov.opts'
+    rm_rf 'lib/tasks/rspec.rake'
   end
   
   def copy(source, target)
