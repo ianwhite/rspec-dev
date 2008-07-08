@@ -23,7 +23,7 @@ In order to run RSpec's full suite of examples (rake pre_commit) you must instal
 * syntax        # Required to highlight ruby code
 * diff-lcs      # Required if you use the --diff switch
 * win32console  # Required by the --colour switch if you're on Windows
-* meta_project  # Required in order to make releases at RubyForge
+* hoe           # Required in order to make releases at RubyForge
 * heckle        # Required if you use the --heckle switch
 * hpricot       # Used for parsing HTML from the HTML output formatter in RSpec's own specs
 
