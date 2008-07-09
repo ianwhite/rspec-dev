@@ -78,6 +78,7 @@ class PreCommit::RspecOnRails < PreCommit
   end
   
   def remove_generated_rspec_files
+    rm_rf 'script/autospec'
     rm_rf 'script/spec'
     rm_rf 'script/spec_server'
     rm_rf 'spec/spec_helper.rb'
