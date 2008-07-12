@@ -190,7 +190,7 @@ class PreCommit::RspecOnRails < PreCommit
 
   def rm_generated_purchase_files
     puts "#####################################################"
-    puts "Removing generated files:"
+    puts "Removing generated files for purchases resource"
     remove %W{
       app/helpers/purchases_helper.rb
       app/models/purchase.rb
@@ -223,7 +223,7 @@ class PreCommit::RspecOnRails < PreCommit
   
   def rm_generated_login_controller_files
     puts "#####################################################"
-    puts "Removing generated files:"
+    puts "Removing generated files for login controller"
     remove %W{
       app/helpers/login_helper.rb
       app/controllers/login_controller.rb
@@ -251,7 +251,7 @@ class PreCommit::RspecOnRails < PreCommit
   
   def rm_generated_account_model_files
     puts "#####################################################"
-    puts "Removing files generated for account model:"
+    puts "Removing files generated for account model"
     remove %W{
       app/models/account.rb
       spec/models/account_spec.rb
@@ -277,7 +277,7 @@ class PreCommit::RspecOnRails < PreCommit
   
   def rm_generated_event_model_files
     puts "#####################################################"
-    puts "Removing files generated for event model:"
+    puts "Removing files generated for event model"
     remove %W{
       app/models/event.rb
       spec/models/event_spec.rb
