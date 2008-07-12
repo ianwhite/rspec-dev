@@ -48,6 +48,7 @@ class PreCommit::RspecOnRails < PreCommit
 
     generate_login_controller
     generate_account_model
+    generate_event_model_skip_fixture
     generate_purchase
     migrate_up
 
@@ -66,6 +67,7 @@ class PreCommit::RspecOnRails < PreCommit
     revert_routes
     migrate_down
     rm_generated_purchase_files
+    rm_generated_event_model_files
     rm_generated_account_model_files
     rm_generated_login_controller_files
     remove_generated_rspec_files if cleanup_rspec
@@ -189,7 +191,7 @@ class PreCommit::RspecOnRails < PreCommit
   def rm_generated_purchase_files
     puts "#####################################################"
     puts "Removing generated files:"
-    generated_files = %W{
+    remove %W{
       app/helpers/purchases_helper.rb
       app/models/purchase.rb
       app/controllers/purchases_controller.rb
@@ -201,10 +203,7 @@ class PreCommit::RspecOnRails < PreCommit
       spec/fixtures/purchases.yml
       spec/views/purchases
     }
-    generated_files.each do |file|
-      rm_rf file
-    end
-    Dir['db/migrate/*_create_purchases.rb'].each {|f| rm_rf f}
+    remove Dir['db/migrate/*_create_purchases.rb']
     puts "#####################################################"
   end
   
@@ -225,7 +224,7 @@ class PreCommit::RspecOnRails < PreCommit
   def rm_generated_login_controller_files
     puts "#####################################################"
     puts "Removing generated files:"
-    generated_files = %W{
+    remove %W{
       app/helpers/login_helper.rb
       app/controllers/login_controller.rb
       app/views/login
@@ -233,9 +232,6 @@ class PreCommit::RspecOnRails < PreCommit
       spec/controllers/login_controller_spec.rb
       spec/views/login
     }
-    generated_files.each do |file|
-      rm_rf file
-    end
     puts "#####################################################"
   end
   
@@ -256,16 +252,42 @@ class PreCommit::RspecOnRails < PreCommit
   def rm_generated_account_model_files
     puts "#####################################################"
     puts "Removing files generated for account model:"
-    generated_files = %W{
+    remove %W{
       app/models/account.rb
       spec/models/account_spec.rb
       spec/fixtures/accounts.yml
     }
-    generated_files.each do |file|
-      rm_rf file
-    end
-    Dir['db/migrate/*_create_accounts.rb'].each {|f| rm_rf f}
+    remove Dir['db/migrate/*_create_accounts.rb']
     puts "#####################################################"
+  end
+
+  def generate_event_model_skip_fixture
+    generator = "ruby script/generate rspec_model event name:string date:date --skip-fixture --force"
+    notice = <<-EOF
+    #####################################################
+    #{generator}
+    #####################################################
+    EOF
+    puts notice.gsub(/^    /, '')
+    result = silent_sh(generator)
+    if error_code? || result =~ /not/
+      raise "rspec_model with --skip-fixture failed. #{result}"
+    end
+  end
+  
+  def rm_generated_event_model_files
+    puts "#####################################################"
+    puts "Removing files generated for event model:"
+    remove %W{
+      app/models/event.rb
+      spec/models/event_spec.rb
+    }
+    remove Dir['db/migrate/*_create_events.rb']
+    puts "#####################################################"
+  end
+  
+  def remove(files)
+    files.each {|file| rm_rf file}
   end
 
   def install_dependencies
