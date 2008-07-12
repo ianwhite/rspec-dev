@@ -47,7 +47,9 @@ class PreCommit::RspecOnRails < PreCommit
     generate_rspec
 
     generate_login_controller
-    create_purchase
+    generate_account_model
+    generate_purchase
+    migrate_up
 
     rake_sh "spec"
     rake_sh "spec:plugins:rspec_on_rails"
@@ -62,8 +64,10 @@ class PreCommit::RspecOnRails < PreCommit
 
   def cleanup(cleanup_rspec=true)
     revert_routes
+    migrate_down
+    rm_generated_purchase_files
+    rm_generated_account_model_files
     rm_generated_login_controller_files
-    destroy_purchase
     remove_generated_rspec_files if cleanup_rspec
   end
 
@@ -73,8 +77,6 @@ class PreCommit::RspecOnRails < PreCommit
   end
 
   def create_purchase
-    generate_purchase
-    migrate_up
   end
   
   def remove_generated_rspec_files
@@ -170,8 +172,6 @@ class PreCommit::RspecOnRails < PreCommit
   end
 
   def destroy_purchase
-    migrate_down
-    rm_generated_purchase_files
   end
 
   def migrate_down
@@ -221,7 +221,7 @@ class PreCommit::RspecOnRails < PreCommit
       raise "rspec_scaffold failed. #{result}"
     end
   end
-
+  
   def rm_generated_login_controller_files
     puts "#####################################################"
     puts "Removing generated files:"
@@ -236,6 +236,35 @@ class PreCommit::RspecOnRails < PreCommit
     generated_files.each do |file|
       rm_rf file
     end
+    puts "#####################################################"
+  end
+  
+  def generate_account_model
+    generator = "ruby script/generate rspec_model account name:string balance_in_cents:integer --force"
+    notice = <<-EOF
+    #####################################################
+    #{generator}
+    #####################################################
+    EOF
+    puts notice.gsub(/^    /, '')
+    result = silent_sh(generator)
+    if error_code? || result =~ /not/
+      raise "rspec_model failed. #{result}"
+    end
+  end
+  
+  def rm_generated_account_model_files
+    puts "#####################################################"
+    puts "Removing files generated for account model:"
+    generated_files = %W{
+      app/models/account.rb
+      spec/models/account_spec.rb
+      spec/fixtures/accounts.yml
+    }
+    generated_files.each do |file|
+      rm_rf file
+    end
+    Dir['db/migrate/*_create_accounts.rb'].each {|f| rm_rf f}
     puts "#####################################################"
   end
 
