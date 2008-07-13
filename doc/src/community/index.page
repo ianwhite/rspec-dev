@@ -324,6 +324,9 @@ In alphabetical order (by last name)
 * Ian White
 ** Patch LH[#271] Since @template.finder, isolation mode doesn't work
 ** Patch for [#11545] Rspec doesn't handle should_receive on ActiveRecord associations
+* Joseph Wilk
+** Patch LH[#300] Showing Story/Scenario Failure Fix for HTML Story formatter
+** Patch LH[#439] Showing Story/Scenario Failure Fix for Plain Text Story formatter
 * Mike Williams
 ** Patch LH[#276] to support the lib directory in rails apps with the Textmate Alternate File command.
 ** Core patches for arbitrary comparisons like 5.should_be < 6
