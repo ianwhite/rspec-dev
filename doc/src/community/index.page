@@ -227,6 +227,7 @@ In alphabetical order (by last name)
 ** Modified mocha to allow for its use outside of test/unit
 * Adam Meehan
 ** Patch LH[#267] Setting mock_model object id with stubs hash
+** Patch LH[#448] fix to_param in mock_model returning auto id when passed stubbed id
 * Saimon Moore
 ** Patch LH[#14] Adding support for by_at_least/by_at_most in Change matcher.
 * Curtis Miller
