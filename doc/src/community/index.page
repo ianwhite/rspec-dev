@@ -257,6 +257,8 @@ In alphabetical order (by last name)
 ** Patch LH[#274] support --drb in spec.opts
 * Steve Ross
 ** Patch [#9132] Rakefile spec:doc can fail without preparing database
+* Arthur Schreiber
+** Patch LH[#457] PositiveOperatorMatcher and NegativeOperatorMatcher fail when #send is overwritten
 * Nick Sieger
 ** Spec::Rails patches for stats
 * Daniel Siemssen
