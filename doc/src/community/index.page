@@ -240,6 +240,8 @@ In alphabetical order (by last name)
 ** Patch [#10473] obj.should exist (new matcher)
 * Tim Pope
 ** Patch LH[#413] Disable color codes on STDOUT when STDOUT.tty? is false
+* Matt Patterson
+* Patch [#440] to add failing example of before filters running twice.
 * Carl Porth
 ** Patch [#12174] mishandling of paths with spaces in spec_mate switch_command
 ** Patch [#12237] (tiny) added full path to mate in switch_command
