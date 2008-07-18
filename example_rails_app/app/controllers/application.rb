@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   before_filter :i_should_only_be_run_once, 
-                :only => 'action_with_ac_base_before_filter_checking_multi_require_bug'
+                :only => 'action_with_inherited_before_filter'
   
   def i_should_only_be_run_once
     true
