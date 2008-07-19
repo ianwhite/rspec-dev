@@ -13,9 +13,3 @@ example_rails_app/vendor
 *.ipr
 *.iws
 *~
-example_rails_app/spec
-example_rails_app/script/spec_server
-example_rails_app/script/spec
-example_rails_app/script/autospec
-stories
-example_rails_app/lib/tasks/rspec.rake
