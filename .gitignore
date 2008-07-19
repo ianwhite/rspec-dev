@@ -1,10 +1,6 @@
-pkg
 *.svn
 */tmtags
-log
 RSpec.tmbundle
-doc/output
-rspec/story_server/prototype/rspec_stories.html
 example_rails_app/config/database.yml
 example_rails_app/db/schema.rb
 example_rails_app/db/*.db
@@ -17,4 +13,9 @@ example_rails_app/vendor
 *.ipr
 *.iws
 *~
-TAGS
+example_rails_app/spec
+example_rails_app/script/spec_server
+example_rails_app/script/spec
+example_rails_app/script/autospec
+stories
+example_rails_app/lib/tasks/rspec.rake
