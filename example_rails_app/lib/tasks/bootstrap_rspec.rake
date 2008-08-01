@@ -11,16 +11,6 @@ namespace :rspec do
     pre_commit.rspec_pre_commit
   end
 
-  desc "installs the Spec::Rails plugin"
-  task :install_plugins do
-    pre_commit.install_plugins
-  end
-
-  desc "uninstalls the Spec::Rails plugin"
-  task :uninstall_plugins do
-    pre_commit.uninstall_plugins
-  end
-
   desc "configures config/database.yml for mysql"
   task :generate_mysql_config do
     pre_commit.generate_mysql_config
