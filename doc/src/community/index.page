@@ -62,6 +62,8 @@ In alphabetical order (by last name)
 ** Paired with Aslak to iron out minor JRuby issues.
 * Mike Breen
 ** Patch [#13098] Error running "script/spec_server" after upgrading from 1.0.5 to 1.0.8
+* Ryan Carmelo Briones
+** Patch [#396] controllers/application.rb <=> spec/controllers/application_controller_spec.rb when using Alternate File
 * Jake Cahoon
 ** Patch #417 - Added additional characters to be escaped in step strings
 * Roman Chernyatchik
