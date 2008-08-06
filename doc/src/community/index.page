@@ -92,6 +92,8 @@ In alphabetical order (by last name)
 * Ryan Davis
 ** Patch LH[#321] Add eval of block passed to raise_error matcher
 ** Assorted patches for integration with autotest
+* Jonathan del Strother
+** Patch LH[#486] Avoid 'invalid option -O' in autotest
 * Ian Dees
 ** Patch LH[#183] quiet the Story Runner backtrace
 ** Patch [#11917] Cleaner Spec::Ui error for failed Selenium connection
