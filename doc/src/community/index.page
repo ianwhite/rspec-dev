@@ -103,6 +103,7 @@ In alphabetical order (by last name)
 ** Patch LH[#241] Add support for should_not render_template
 ** Zach Dennis
 ** Patch LH[#324] Consolidate :steps_for and :steps
+** Patch LH[#487] Add mock_model#as_new_record
 * James Deville
 ** Patch [#13451] Add a null_object option to mock_model
 ** Patch for [#13065] Named routes throw a NoMethodError in Helper specs
